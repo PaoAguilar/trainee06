@@ -1,0 +1,72 @@
+@import './variables';
+.movie {
+  width: 100%;
+  height: 100%;
+  padding: 4rem 12rem 3rem 12rem;
+
+  &__container {
+    display: inline-table;
+    width: 220px;
+    height: 19rem;
+    margin-right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transform-origin: center left;
+  }
+  &__container:hover {
+    opacity: 0.6;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__card-body {
+    background-color: white;
+    padding-top: 1rem;
+    padding: 10px;
+    max-width: 100%;
+    height: 4rem;
+    opacity: 0.6;
+
+    p {
+      width: 100%;
+      color: var(--grey-dark-1);
+      font-size: 1rem;
+      font-weight: bolder;
+    }
+  }
+
+  h1 {
+    display: flex;
+  }
+}
+
+.button-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+
+  &__previous,
+  &__next {
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #ffffff;
+    margin: 0 0.3em 0.3em 0;
+    text-decoration: none;
+    color: #ffffff;
+    background: transparent;
+    height: 3rem;
+    width: 8rem;
+    margin: 1rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__previous:hover,
+  &__next:hover {
+    color: #000000;
+    background-color: #ffffff;
+  }
+}
