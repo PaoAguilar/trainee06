@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import '../styles/footer.scss';
-import { useAuth } from './context/AuthContext';
 const Footer = () => {
-  const { jwt } = useAuth();
   return (
     <>
       <footer className="footer">
@@ -11,7 +9,6 @@ const Footer = () => {
           <div className="footer__links">
             <div>
               <h3>About</h3>
-              <h5>{jwt}</h5>
             </div>
             <div>
               <h3>Need help?</h3>

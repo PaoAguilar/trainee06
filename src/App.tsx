@@ -9,9 +9,9 @@ import GameDetail from './components/GameDetail';
 
 function App(): JSX.Element {
   return (
-    <Layout>
-      <AuthProvider>
-        <Router>
+    <AuthProvider>
+      <Router>
+        <Layout>
           <Route exact path="/">
             <Login />
           </Route>
@@ -22,9 +22,9 @@ function App(): JSX.Element {
             <ListOfGames />
           </Route>
           <Route exact path="/gameDetail/:id" component={GameDetail} />
-        </Router>
-      </AuthProvider>
-    </Layout>
+        </Layout>
+      </Router>
+    </AuthProvider>
   );
 }
 

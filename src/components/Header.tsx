@@ -10,41 +10,37 @@ const Header = () => {
     <header className="header">
       <div
         onClick={() => {
-          history.push("/home")
+          if (jwt) history.push("/home")
         }}
         className="header__logo"
       />
       <nav>
         <h1>GAME ZONE</h1>
-        <h2>{jwt}</h2>
       </nav>
       <div className="header__link">
         <button
           type="button"
             onClick={() => {
-              console.log('hi');
-              history.push("/ListOfGames")
-              // console.log(jwt)
-              // if (jwt) changePage('ListOfGames');
+              if (jwt) history.push("/listOfGames")
             }}
         >
           LIST
         </button>
         <button type="button">ABOUT US</button>
         <button type="button">CONTACT US</button>
-        {/* {jwt && ( */}
+        {jwt && (
           <button
             type="button"
             className="logout"
             onClick={() => {
               localStorage.removeItem('jwt');
-              history.push("/login")
+              history.push("/")
               window.location.reload();
             }}
           >
             Logout
           </button>
-        {/* )} */}
+        )}
       </div>
     </header>
   );
