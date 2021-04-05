@@ -2,7 +2,7 @@ export interface Game {
   id: number;
   name: string;
   release_year: number;
-  price: number;
+  price?: number;
   genre: {
     name: string;
   };

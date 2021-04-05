@@ -1,6 +1,6 @@
 import { GET_GAMES } from './constants';
 
-export const getGames = async (page:number) => {
+export const getListOfGames = async (page: number) => {
   const start = page === 1 ? 1 : (page - 1) * 7 + 1;
   try {
     const res = await fetch(
@@ -13,7 +13,19 @@ export const getGames = async (page:number) => {
   }
 };
 
-export const getComments = async (gameId:number) => {
+export const getGame = async (gameId: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.REACT_APP_BASE_URL}${GET_GAMES}/${gameId}`
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getComments = async (gameId: number) => {
   try {
     const res = await fetch(
       `${process.env.REACT_APP_BASE_URL}/games/${gameId}/comments`
@@ -25,7 +37,7 @@ export const getComments = async (gameId:number) => {
     throw new Error(error.message);
   }
 };
-export const authLogin = async (username:string, pass:string) => {
+export const authLogin = async (username: string, pass: string) => {
   try {
     const res = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/local`, {
       method: 'POST',
@@ -51,7 +63,7 @@ export const authLogin = async (username:string, pass:string) => {
   }
 };
 
-export const createComment = async (gameId:number, bodyComment:string) => {
+export const createComment = async (gameId: number, bodyComment: string) => {
   const token = localStorage.getItem('jwt');
   try {
     const res = await fetch(

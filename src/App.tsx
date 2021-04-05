@@ -21,7 +21,9 @@ function App(): JSX.Element {
           <Route exact path="/listOfGames">
             <ListOfGames />
           </Route>
-          <Route exact path="/gameDetail/:id" component={GameDetail} />
+          <Route exact path="/gameDetail/:gameId">
+            <GameDetail />
+          </Route>
         </Layout>
       </Router>
     </AuthProvider>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GameCard from './GameCard';
-import { getGames } from '../config/actions';
+import { getListOfGames } from '../config/actions';
 import '../styles/listOfGames.scss';
 import { Game } from './types/interfaces';
 
@@ -9,8 +9,8 @@ const ListOfGames = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const fetchGames = useCallback(() => {
-    getGames(currentPage).then((result) => {
-      console.log(result);
+    getListOfGames(currentPage).then((result) => {
+      // console.log(result);
       setGameList(result);
     });
   }, [currentPage]);
