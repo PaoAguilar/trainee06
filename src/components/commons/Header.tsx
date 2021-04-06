@@ -1,7 +1,9 @@
 import React, { memo } from 'react';
-import { useAuth } from './context/AuthContext';
-import '../styles/header.scss';
+
+import { useAuth } from '../context/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../../config/constants';
+import '../../styles/header.scss';
 
 const Header = () => {
   let history = useHistory();
@@ -33,7 +35,7 @@ const Header = () => {
             type="button"
             className="logout"
             onClick={() => {
-              localStorage.removeItem('jwt');
+              localStorage.removeItem(ACCESS_TOKEN);
               history.push("/")
               window.location.reload();
             }}

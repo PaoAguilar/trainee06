@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { getComments, createComment, getGame } from '../config/actions';
-import { Game, Comment } from './types/interfaces';
-import '../styles/gameDetail.scss';
+
+import { getComments, createComment, getGame } from '../../config/actions';
+import { Game, Comment } from '../types/interfaces';
 import { useParams } from 'react-router-dom';
+import '../../styles/gameDetail.scss';
 
 const GameDetail = () => {
-  // interface Gamedetail {
-  //   id:string
-  // }
 
   const [gameComment, setGameComment] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [game, setGame] = useState<Game>();
 
-  // console.log(useParams());
-
   const { gameId } = useParams<{ gameId: string }>();
-  // console.log(gameId)
 
   useEffect(() => {
     getGame(gameId).then((result) => {
@@ -41,6 +36,7 @@ const GameDetail = () => {
       createComment(game.id, newComment).then((result) => {
         setGameComment([...gameComment, result]);
       });
+      setNewComment('')
     }
   };
   const hadleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

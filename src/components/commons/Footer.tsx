@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import '../styles/footer.scss';
+
+import '../../styles/footer.scss';
+
 const Footer = () => {
   return (
     <>

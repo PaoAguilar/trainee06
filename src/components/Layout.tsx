@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import Header from './Header'
-import Footer from './Footer';
+
+import Header from './commons/Header'
+import Footer from './commons/Footer';
 import '../styles/layout.scss';
 
 interface ILayoutProps {

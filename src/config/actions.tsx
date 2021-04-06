@@ -1,10 +1,10 @@
-import { GET_GAMES } from './constants';
+import { ENDPOINTS, ACCESS_TOKEN } from './constants';
 
 export const getListOfGames = async (page: number) => {
   const start = page === 1 ? 1 : (page - 1) * 7 + 1;
   try {
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}${GET_GAMES}?_start=${start}&_limit=7`
+      `${ENDPOINTS.GET_LISTOFGAMES}?_start=${start}&_limit=7`
     );
     const data = await res.json();
     return data;
@@ -16,7 +16,7 @@ export const getListOfGames = async (page: number) => {
 export const getGame = async (gameId: string) => {
   try {
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}${GET_GAMES}/${gameId}`
+      ENDPOINTS.GET_GAMES.replace(':gameId', gameId)
     );
     const data = await res.json();
     return data;
@@ -28,7 +28,7 @@ export const getGame = async (gameId: string) => {
 export const getComments = async (gameId: number) => {
   try {
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/games/${gameId}/comments`
+      `${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comments`
     );
     const data = await res.json();
     // console.log(data);
@@ -39,7 +39,7 @@ export const getComments = async (gameId: number) => {
 };
 export const authLogin = async (username: string, pass: string) => {
   try {
-    const res = await fetch(`${process.env.REACT_APP_BASE_URL}/auth/local`, {
+    const res = await fetch(ENDPOINTS.GET_AUTHENTICATION, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -54,7 +54,7 @@ export const authLogin = async (username: string, pass: string) => {
       return data;
     }
     if (res.status === 403) {
-      localStorage.removeItem('jwt');
+      localStorage.removeItem(ACCESS_TOKEN);
       window.location.reload();
     }
     return Promise.reject();
@@ -64,10 +64,10 @@ export const authLogin = async (username: string, pass: string) => {
 };
 
 export const createComment = async (gameId: number, bodyComment: string) => {
-  const token = localStorage.getItem('jwt');
+  const token = localStorage.getItem(ACCESS_TOKEN);
   try {
     const res = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/games/${gameId}/comment`,
+      `${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comment`,
       {
         method: 'POST',
         headers: {

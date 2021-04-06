@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import GameCard from './GameCard';
-import { getListOfGames } from '../config/actions';
-import '../styles/listOfGames.scss';
-import { Game } from './types/interfaces';
+
+import GameCard from '../GameCard';
+import { getListOfGames } from '../../config/actions';
+import { Game } from '../types/interfaces';
+import '../../styles/listOfGames.scss';
 
 const ListOfGames = () => {
   const [gameList, setGameList] = useState<Game[]>([]);

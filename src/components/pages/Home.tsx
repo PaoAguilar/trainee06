@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { useHistory } from 'react-router-dom';
-import '../styles/home.scss';
+import '../../styles/home.scss';
 
 const Home = () => {
   let history = useHistory()

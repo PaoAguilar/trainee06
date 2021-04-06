@@ -1,8 +1,10 @@
 import React, { useRef, useContext } from 'react';
-import { authLogin } from '../config/actions';
-import { AuthContext } from './context/AuthContext';
+
+import { authLogin } from '../../config/actions';
+import { AuthContext } from '../context/AuthContext';
 import { useHistory } from 'react-router-dom';
-import '../styles/login.scss';
+import { ACCESS_TOKEN } from '../../config/constants';
+import '../../styles/login.scss';
 
 function Login() {
   let history = useHistory();
@@ -18,7 +20,7 @@ function Login() {
         const password = passwordRef.current.value;
         authLogin(identifier, password).then((data) => {
             // console.log(data);
-            localStorage.setItem('jwt', data.jwt);
+            localStorage.setItem(ACCESS_TOKEN, data.jwt);
             setJwt(data.jwt);
             history.push("/home")
           });
