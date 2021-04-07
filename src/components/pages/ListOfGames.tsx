@@ -3,17 +3,21 @@ import React, { useState, useEffect, useCallback } from 'react';
 import GameCard from '../GameCard';
 import { getListOfGames } from '../../config/actions';
 import { Game } from '../types/interfaces';
+import { useHistory } from 'react-router-dom';
+import { ROUTE } from '../types/routing';
 import '../../styles/listOfGames.scss';
 
 const ListOfGames = () => {
   const [gameList, setGameList] = useState<Game[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  let history = useHistory()
 
   const fetchGames = useCallback(() => {
     getListOfGames(currentPage).then((result) => {
       setGameList(result);
+      history.push(`${ROUTE.LIST_OF_GAMES}?page=${currentPage}`)
     });
-  }, [currentPage]);
+  }, [currentPage, history]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -46,6 +50,7 @@ const ListOfGames = () => {
           onClick={() => {
             if (currentPage > 1) {
               setCurrentPage(currentPage - 1);
+
             }
           }}
         >
