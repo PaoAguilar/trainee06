@@ -10,7 +10,6 @@ const GameCard = ({ game }: { game: Game }) => {
     <div
       onClick={() => {
         history.push(`/gameDetail/${game.id}`)
-        // console.log(game.id)
       }}
       key={game.id}
       className="movie__container"

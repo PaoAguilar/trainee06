@@ -11,7 +11,6 @@ const ListOfGames = () => {
 
   const fetchGames = useCallback(() => {
     getListOfGames(currentPage).then((result) => {
-      // console.log(result);
       setGameList(result);
     });
   }, [currentPage]);
@@ -32,7 +31,6 @@ const ListOfGames = () => {
       </h1>
       <div className="movie">
         {gameList.map((game:Game) => {
-            // return console.log(game.id)
           return (
             <GameCard
               key={game.id}

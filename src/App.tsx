@@ -6,22 +6,23 @@ import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import ListOfGames from './components/pages/ListOfGames';
 import GameDetail from './components/pages/GameDetail';
+import { ROUTE } from './components/types/routing';
 
 function App(): JSX.Element {
   return (
     <AuthProvider>
       <Router>
         <Layout>
-          <Route exact path="/">
+          <Route exact path={ROUTE.LOGIN}>
             <Login />
           </Route>
-          <Route exact path="/home">
+          <Route exact path={ROUTE.HOME}>
             <Home />
           </Route>
-          <Route exact path="/listOfGames">
+          <Route exact path={ROUTE.LIST_OF_GAMES}>
             <ListOfGames />
           </Route>
-          <Route exact path="/gameDetail/:gameId">
+          <Route exact path={ROUTE.GAME_DETAIL}>
             <GameDetail />
           </Route>
         </Layout>
