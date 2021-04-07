@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../config/constants';
 import '../../styles/login.scss';
+import { ROUTE } from '../types/routing';
 
 function Login() {
   let history = useHistory();
@@ -22,7 +23,7 @@ function Login() {
             // console.log(data);
             localStorage.setItem(ACCESS_TOKEN, data.jwt);
             setJwt(data.jwt);
-            history.push("/home")
+            history.push(ROUTE.HOME)
           });
     }
   };

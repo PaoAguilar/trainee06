@@ -3,13 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Game } from './types/interfaces';
 import { useHistory } from 'react-router-dom';
+import { ROUTE } from './types/routing';
 
 const GameCard = ({ game }: { game: Game }) => {
   let history = useHistory();
   return (
     <div
       onClick={() => {
-        history.push(`/gameDetail/${game.id}`)
+        history.push(ROUTE.GAME_DETAIL.replace(':gameId', `${game.id}`))
       }}
       key={game.id}
       className="movie__container"
