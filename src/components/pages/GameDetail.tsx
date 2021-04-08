@@ -28,7 +28,7 @@ const GameDetail = () => {
         setGameComment(result);
       });
     }
-  }, [gameComment, game]);
+  }, [game]);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
