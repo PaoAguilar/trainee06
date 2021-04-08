@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../config/constants';
 import '../../styles/login.scss';
 import { ROUTE } from '../types/routing';
+import {useLocalStorage} from '../hooks/useLocalStorage';
 
 function Login() {
   let history = useHistory();
@@ -13,6 +14,7 @@ function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const { setJwt } = useContext(AuthContext);
+  const [setToken] = useLocalStorage(ACCESS_TOKEN,'');
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -20,8 +22,7 @@ function Login() {
         const identifier = usernameRef.current.value;
         const password = passwordRef.current.value;
         authLogin(identifier, password).then((data) => {
-            // console.log(data);
-            localStorage.setItem(ACCESS_TOKEN, data.jwt);
+            setToken(data.jwt);
             setJwt(data.jwt);
             history.push(ROUTE.HOME)
           });
