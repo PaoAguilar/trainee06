@@ -16,10 +16,18 @@ function App(): JSX.Element {
       <Router>
         <Suspense fallback>
           <Layout>
-            <Route exact path={ROUTE.LOGIN} component={Login} />
-            <PrivateRoute exact path={ROUTE.HOME} component={Home} />
-            <PrivateRoute exact path={ROUTE.LIST_OF_GAMES} component={ListOfGames} />
-            <PrivateRoute exact path={ROUTE.GAME_DETAIL} component={GameDetail} />
+            <Route exact path={ROUTE.LOGIN}>
+              <Login />
+            </Route>
+            <PrivateRoute exact path={ROUTE.HOME}>
+              <Home />
+            </PrivateRoute>
+            <PrivateRoute exact path={ROUTE.LIST_OF_GAMES}>
+              <ListOfGames />
+            </PrivateRoute>
+            <PrivateRoute exact path={ROUTE.GAME_DETAIL}>
+              <GameDetail />
+            </PrivateRoute>
           </Layout>
         </Suspense>
       </Router>

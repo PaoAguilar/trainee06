@@ -64,7 +64,7 @@ export const authLogin = async (username: string, pass: string) => {
 };
 
 export const createComment = async (gameId: number, bodyComment: string) => {
-  const token = localStorage.getItem(ACCESS_TOKEN);
+  const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '');
   try {
     const res = await fetch(
       `${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comment`,

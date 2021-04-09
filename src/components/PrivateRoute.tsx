@@ -3,15 +3,16 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { ROUTE } from './types/routing';
+import { RouteProps } from 'react-router'
 
-const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
+const PrivateRoute = ({ children, ...rest }: RouteProps) => {
   const { jwt } = useAuth();
   return (
     <Route
       {...rest}
       render={ () =>
-        !!jwt ? (
-          <RouteComponent />
+        jwt ? (
+          children
         ) : (
           <Redirect to={ROUTE.LOGIN} />
         )

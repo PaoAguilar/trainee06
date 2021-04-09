@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import PropTypes from 'prop-types';
+import { ACCESS_TOKEN } from '../../config/constants';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -14,11 +15,14 @@ interface AuthProviderProps {
 }
 
 interface ContextTypes {
-  jwt: string,
-  setJwt: (jwt:string) => void
+  jwt: string;
+  setJwt: (jwt: string) => void;
 }
 
-export const AuthContext = createContext<ContextTypes>({jwt:'', setJwt:()=>{}});
+export const AuthContext = createContext<ContextTypes>({
+  jwt: '',
+  setJwt: () => {},
+});
 
 export const useAuth = () => {
   const authState = useContext(AuthContext);
@@ -26,7 +30,12 @@ export const useAuth = () => {
 };
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [jwt, setJwt] = useState<string>('');
+  const [jwt, setJwt] = useState<string>(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      return JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '');     
+    }
+    return ''
+  });
   const providerValue = useMemo(() => ({ jwt, setJwt }), [jwt, setJwt]);
   return (
     <AuthContext.Provider value={providerValue}>
