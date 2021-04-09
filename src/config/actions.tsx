@@ -15,9 +15,7 @@ export const getListOfGames = async (page: number) => {
 
 export const getGame = async (gameId: string) => {
   try {
-    const res = await fetch(
-      ENDPOINTS.GET_GAMES.replace(':gameId', gameId)
-    );
+    const res = await fetch(ENDPOINTS.GET_GAMES.replace(':gameId', gameId));
     const data = await res.json();
     return data;
   } catch (error) {
@@ -27,8 +25,18 @@ export const getGame = async (gameId: string) => {
 
 export const getComments = async (gameId: number) => {
   try {
+    const res = await fetch(`${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comments`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const searchGames = async (gameName: string, genre: string) => {
+  try {
     const res = await fetch(
-      `${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comments`
+      `${ENDPOINTS.GET_LISTOFGAMES}?name_contains=${gameName}&genre.name_contains=${genre}`
     );
     const data = await res.json();
     // console.log(data);
@@ -37,6 +45,7 @@ export const getComments = async (gameId: number) => {
     throw new Error(error.message);
   }
 };
+
 export const authLogin = async (username: string, pass: string) => {
   try {
     const res = await fetch(ENDPOINTS.GET_AUTHENTICATION, {
@@ -66,19 +75,16 @@ export const authLogin = async (username: string, pass: string) => {
 export const createComment = async (gameId: number, bodyComment: string) => {
   const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '');
   try {
-    const res = await fetch(
-      `${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comment`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          body: bodyComment,
-        }),
-      }
-    );
+    const res = await fetch(`${ENDPOINTS.GET_LISTOFGAMES}/${gameId}/comment`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        body: bodyComment,
+      }),
+    });
     if (res.status === 200) {
       const data = res.json();
       return data;

@@ -10,12 +10,22 @@ const GameCard = ({ game }: { game: Game }) => {
   return (
     <div
       onClick={() => {
-        history.push(ROUTE.GAME_DETAIL.replace(':gameId', `${game.id}`))
+        history.push(ROUTE.GAME_DETAIL.replace(':gameId', `${game.id}`));
       }}
       key={game.id}
       className="movie__container"
     >
-      <img alt="movie" src={game.cover_art.url} />
+      <div className="movie__image">
+        {!game.cover_art ? (
+          <img
+            alt="movie"
+            src="https://airocean.com.pe/wp-content/uploads/2019/10/image-not-found.png"
+          />
+        ) : (
+          <img alt="movie" src={game.cover_art.url} />
+        )}
+      </div>
+
       <div className="movie__card-body">
         <p>{game.name}</p>
         <p>{game.release_year}</p>
@@ -25,7 +35,7 @@ const GameCard = ({ game }: { game: Game }) => {
 };
 
 GameCard.propTypes = {
-  game: PropTypes.object.isRequired
+  game: PropTypes.object.isRequired,
 };
 
 export default GameCard;
