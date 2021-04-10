@@ -39,8 +39,6 @@ const ListOfGames = () => {
       console.log(result)
       setGameList(result)
     });
-    // searchGames(gameName,genre)
-    // console.log(gameName, genre);
   };
 
   return (
