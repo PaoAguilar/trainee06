@@ -51,17 +51,19 @@ const ListOfGames = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          className="input-text"
           placeholder="Game"
           value={gameName}
           onChange={(e) => setGameName(e.target.value)}
         />
         <input
           type="text"
+          className="input-text"
           placeholder="Genre"
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
         />
-        <button>Search</button>
+        <button className="button-search">Search</button>
       </form>
       <div className="movie">
         {gameList.map((game: Game) => {
