@@ -1,7 +1,8 @@
-import { ENDPOINTS, ACCESS_TOKEN } from './constants';
+import { ENDPOINTS, ACCESS_TOKEN, ITEMS_PER_PAGE } from './constants';
 
 export const getListOfGames = async (page: number) => {
-  const start = page === 1 ? 1 : (page - 1) * 7 + 1;
+  const specificNumberOfStartEntry = page  * ITEMS_PER_PAGE + 1
+  const start = page === 0 ? 0 : specificNumberOfStartEntry;
   try {
     const res = await fetch(
       `${ENDPOINTS.GET_LISTOFGAMES}?_start=${start}&_limit=7`

@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import '../../styles/gameDetail.scss';
 
 const GameDetail = () => {
-
   const [gameComment, setGameComment] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [game, setGame] = useState<Game>();
@@ -36,7 +35,7 @@ const GameDetail = () => {
       createComment(game.id, newComment).then((result) => {
         setGameComment([...gameComment, result]);
       });
-      setNewComment('')
+      setNewComment('');
     }
   };
   const hadleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +52,19 @@ const GameDetail = () => {
             <div className="game__container">
               <h1 className="game__title">{game.name}</h1>
               <h2 className="game__subtitle">{game.genre.name}</h2>
-              <img className="game__image" alt="" src={game.cover_art.url} />
+              {!game.cover_art ? (
+                <img
+                  alt="movie"
+                  className="game__image"
+                  src="https://airocean.com.pe/wp-content/uploads/2019/10/image-not-found.png"
+                />
+              ) : (
+                <img
+                  className="game__image"
+                  alt="movie"
+                  src={game.cover_art.url}
+                />
+              )}
               <div className="game__date">
                 <h4>Year of release: {game.release_year}</h4>
               </div>

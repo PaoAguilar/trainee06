@@ -9,7 +9,7 @@ import '../../styles/listOfGames.scss';
 
 const ListOfGames = () => {
   const [gameList, setGameList] = useState<Game[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [gameName, setGameName] = useState('');
   const [genre, setGenre] = useState('');
   let history = useHistory();
@@ -47,7 +47,7 @@ const ListOfGames = () => {
     <div>
       <h1>
         LIST OF GAMES (page
-        {currentPage})
+        {currentPage + 1} )
       </h1>
       <br />
       <form onSubmit={handleSubmit}>
@@ -75,7 +75,7 @@ const ListOfGames = () => {
           type="button"
           className="button-container__previous"
           onClick={() => {
-            if (currentPage > 1) {
+            if (currentPage > 0) {
               setCurrentPage(currentPage - 1);
             }
           }}
@@ -86,7 +86,7 @@ const ListOfGames = () => {
           type="button"
           className="button-container__next"
           onClick={() => {
-            if (currentPage >= 1 && currentPage < 3) {
+            if (currentPage >= 0 && currentPage < 2) {
               setCurrentPage(currentPage + 1);
             }
           }}
