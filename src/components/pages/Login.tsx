@@ -14,7 +14,7 @@ function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const { setJwt } = useContext(AuthContext);
-  const [setToken] = useLocalStorage(ACCESS_TOKEN,'');
+  const [,setToken] = useLocalStorage(ACCESS_TOKEN,'');
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();

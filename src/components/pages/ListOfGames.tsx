@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import GameCard from '../GameCard';
 import { getListOfGames, searchGames } from '../../config/actions';
 import { Game } from '../types/interfaces';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { ROUTE } from '../types/routing';
 import '../../styles/listOfGames.scss';
 
@@ -21,13 +21,23 @@ const ListOfGames = () => {
     });
   }, [currentPage, history]);
 
+  const search = useLocation().search
+  
   useEffect(() => {
+    const query = new URLSearchParams(search);
     const abortController = new AbortController();
-    fetchGames();
+    if (query.get('find_game') || query.get('find_genre')){
+      searchGames(query.get('find_game')!, query.get('find_genre')!).then((result) => {
+        console.log(result)
+        setGameList(result)
+      });
+    }else{
+      fetchGames();
+    }
     return () => {
       abortController.abort();
     };
-  }, [fetchGames]);
+  }, [fetchGames, search]);
 
   const urlEncodedGameName = encodeURI(gameName)
   const urlEncodedGenre = encodeURI(genre)
@@ -35,7 +45,7 @@ const ListOfGames = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     history.push(`${ROUTE.LIST_OF_GAMES}?find_game=${urlEncodedGameName}&find_genre=${urlEncodedGenre}`)
-    searchGames(gameName,genre).then((result) => {
+    searchGames(gameName, genre).then((result) => {
       console.log(result)
       setGameList(result)
     });
