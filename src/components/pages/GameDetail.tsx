@@ -9,9 +9,7 @@ import '../../styles/gameDetail.scss';
 const GameDetail = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const [gameComment, setGameComment] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
-  // const [game, setGame] = useState<Game>();
   const { gameId } = useParams<{ gameId: string }>();
 
   useEffect(() => {
@@ -21,15 +19,16 @@ const GameDetail = () => {
         type: 'SET_GAME',
         payload: { game: result },
       });
-      // setGame(result);
     });
   }, [gameId]);
 
   useEffect(() => {
     if (state.game) {
       getComments(state.game.id).then((result) => {
-        console.log(result);
-        setGameComment(result);
+        dispatch({
+          type: 'SET_GAME_COMMENTS',
+          payload: { gameComment: result },
+        });
       });
     }
   }, [state.game]);
@@ -38,7 +37,11 @@ const GameDetail = () => {
     e.preventDefault();
     if (state.game) {
       createComment(state.game.id, newComment).then((result) => {
-        setGameComment([...gameComment, result]);
+        console.log(result);
+        dispatch({
+          type: 'ADD_GAME_COMMENT',
+          payload: { commentAdded:result },
+        });
       });
       setNewComment('');
     }
@@ -83,7 +86,7 @@ const GameDetail = () => {
                 <br />
                 <div className="game__scroll">
                   <h3>Comments:</h3>
-                  {gameComment.map((comment: Comment) => {
+                  {state.gameComment.map((comment: Comment) => {
                     return (
                       <div className="comments__all" key={comment.id}>
                         <h4>
