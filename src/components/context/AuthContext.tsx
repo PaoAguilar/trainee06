@@ -1,23 +1,8 @@
-import React, {
-  createContext,
-  useState,
-  useContext,
-  useMemo,
-  ReactNode,
-} from 'react';
+import React, { createContext, useState, useContext, useMemo } from 'react';
 
 import PropTypes from 'prop-types';
 import { ACCESS_TOKEN } from '../../config/constants';
-
-interface AuthProviderProps {
-  children: ReactNode;
-  // any other props that come into the component
-}
-
-interface ContextTypes {
-  jwt: string;
-  setJwt: (jwt: string) => void;
-}
+import { ChildrenProps, ContextTypes } from '../types/interfaces';
 
 export const AuthContext = createContext<ContextTypes>({
   jwt: '',
@@ -29,12 +14,12 @@ export const useAuth = () => {
   return authState;
 };
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children }: ChildrenProps) => {
   const [jwt, setJwt] = useState<string>(() => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
-      return JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '');     
+      return JSON.parse(localStorage.getItem(ACCESS_TOKEN) || '');
     }
-    return ''
+    return '';
   });
   const providerValue = useMemo(() => ({ jwt, setJwt }), [jwt, setJwt]);
   return (

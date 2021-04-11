@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface Game {
   id: number;
   name: string;
@@ -18,4 +20,13 @@ export interface Comment {
   };
   body: string;
   id: number;
+}
+
+export interface ContextTypes {
+  jwt: string;
+  setJwt: (jwt: string) => void;
+}
+
+export interface ChildrenProps {
+  children: ReactNode;
 }

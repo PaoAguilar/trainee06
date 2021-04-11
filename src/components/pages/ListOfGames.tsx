@@ -21,17 +21,18 @@ const ListOfGames = () => {
     });
   }, [currentPage, history]);
 
-  const search = useLocation().search
-  
+  const search = useLocation().search;
+
   useEffect(() => {
     const query = new URLSearchParams(search);
     const abortController = new AbortController();
-    if (query.get('find_game') || query.get('find_genre')){
-      searchGames(query.get('find_game')!, query.get('find_genre')!).then((result) => {
-        console.log(result)
-        setGameList(result)
-      });
-    }else{
+    if (query.get('find_game') || query.get('find_genre')) {
+      searchGames(query.get('find_game')!, query.get('find_genre')!).then(
+        (result) => {
+          setGameList(result);
+        }
+      );
+    } else {
       fetchGames();
     }
     return () => {
@@ -39,15 +40,16 @@ const ListOfGames = () => {
     };
   }, [fetchGames, search]);
 
-  const urlEncodedGameName = encodeURI(gameName)
-  const urlEncodedGenre = encodeURI(genre)
+  const urlEncodedGameName = encodeURI(gameName);
+  const urlEncodedGenre = encodeURI(genre);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    history.push(`${ROUTE.LIST_OF_GAMES}?find_game=${urlEncodedGameName}&find_genre=${urlEncodedGenre}`)
+    history.push(
+      `${ROUTE.LIST_OF_GAMES}?find_game=${urlEncodedGameName}&find_genre=${urlEncodedGenre}`
+    );
     searchGames(gameName, genre).then((result) => {
-      console.log(result)
-      setGameList(result)
+      setGameList(result);
     });
   };
 

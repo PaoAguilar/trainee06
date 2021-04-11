@@ -14,7 +14,6 @@ const GameDetail = () => {
 
   useEffect(() => {
     getGame(gameId).then((result) => {
-      console.log(result);
       dispatch({
         type: 'SET_GAME',
         payload: { game: result },
@@ -37,10 +36,9 @@ const GameDetail = () => {
     e.preventDefault();
     if (state.game) {
       createComment(state.game.id, newComment).then((result) => {
-        console.log(result);
         dispatch({
           type: 'ADD_GAME_COMMENT',
-          payload: { commentAdded:result },
+          payload: { commentAdded: result },
         });
       });
       setNewComment('');

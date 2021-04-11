@@ -1,15 +1,12 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-import Header from './commons/Header'
+import Header from './commons/Header';
 import Footer from './commons/Footer';
 import { useAuth } from './context/AuthContext';
+import { ChildrenProps } from './types/interfaces';
 import '../styles/layout.scss';
 
-interface ILayoutProps {
-    children: ReactNode;
-    // any other props that come into the component
-}
-const Layout = ({children}: ILayoutProps) => {
+const Layout = ({ children }: ChildrenProps) => {
   const { jwt } = useAuth();
   return (
     <div className="content">

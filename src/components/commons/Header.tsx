@@ -3,8 +3,8 @@ import React, { memo } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../config/constants';
-import '../../styles/header.scss';
 import { ROUTE } from '../types/routing';
+import '../../styles/header.scss';
 
 const Header = () => {
   let history = useHistory();
@@ -13,7 +13,7 @@ const Header = () => {
     <header className="header">
       <div
         onClick={() => {
-          if (jwt) history.push(ROUTE.HOME)
+          if (jwt) history.push(ROUTE.HOME);
         }}
         className="header__logo"
       />
@@ -23,9 +23,9 @@ const Header = () => {
       <div className="header__link">
         <button
           type="button"
-            onClick={() => {
-              if (jwt) history.push(ROUTE.LIST_OF_GAMES)
-            }}
+          onClick={() => {
+            if (jwt) history.push(ROUTE.LIST_OF_GAMES);
+          }}
         >
           LIST
         </button>
@@ -37,7 +37,7 @@ const Header = () => {
             className="logout"
             onClick={() => {
               localStorage.removeItem(ACCESS_TOKEN);
-              history.push(ROUTE.LOGIN)
+              history.push(ROUTE.LOGIN);
               window.location.reload();
             }}
           >

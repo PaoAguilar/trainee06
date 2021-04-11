@@ -1,7 +1,7 @@
 import { ENDPOINTS, ACCESS_TOKEN, ITEMS_PER_PAGE } from './constants';
 
 export const getListOfGames = async (page: number) => {
-  const specificNumberOfStartEntry = page  * ITEMS_PER_PAGE + 1
+  const specificNumberOfStartEntry = page * ITEMS_PER_PAGE + 1;
   const start = page === 0 ? 0 : specificNumberOfStartEntry;
   try {
     const res = await fetch(
@@ -40,7 +40,6 @@ export const searchGames = async (gameName: string, genre: string) => {
       `${ENDPOINTS.GET_LISTOFGAMES}?name_contains=${gameName}&genre.name_contains=${genre}`
     );
     const data = await res.json();
-    // console.log(data);
     return data;
   } catch (error) {
     throw new Error(error.message);
