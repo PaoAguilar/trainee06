@@ -1,38 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import { getComments, createComment, getGame } from '../../config/actions';
-import { Game, Comment } from '../types/interfaces';
+import { Comment } from '../types/interfaces';
 import { useParams } from 'react-router-dom';
+import { initialState, reducer } from '../../config/reducer';
 import '../../styles/gameDetail.scss';
 
 const GameDetail = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const [gameComment, setGameComment] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
-  const [game, setGame] = useState<Game>();
-
+  // const [game, setGame] = useState<Game>();
   const { gameId } = useParams<{ gameId: string }>();
 
   useEffect(() => {
     getGame(gameId).then((result) => {
-      console.log(result.id);
       console.log(result);
-
-      setGame(result);
+      dispatch({
+        type: 'SET_GAME',
+        payload: { game: result },
+      });
+      // setGame(result);
     });
   }, [gameId]);
 
   useEffect(() => {
-    if (game) {
-      getComments(game.id).then((result) => {
+    if (state.game) {
+      getComments(state.game.id).then((result) => {
+        console.log(result);
         setGameComment(result);
       });
     }
-  }, [game]);
+  }, [state.game]);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (game) {
-      createComment(game.id, newComment).then((result) => {
+    if (state.game) {
+      createComment(state.game.id, newComment).then((result) => {
         setGameComment([...gameComment, result]);
       });
       setNewComment('');
@@ -45,14 +50,14 @@ const GameDetail = () => {
 
   return (
     <>
-      {game ? (
+      {state.game ? (
         <div>
-          <h1>DETAILS OF {game.name}</h1>
+          <h1>DETAILS OF {state.game.name}</h1>
           <div className="game">
             <div className="game__container">
-              <h1 className="game__title">{game.name}</h1>
-              <h2 className="game__subtitle">{game.genre.name}</h2>
-              {!game.cover_art ? (
+              <h1 className="game__title">{state.game.name}</h1>
+              <h2 className="game__subtitle">{state.game.genre.name}</h2>
+              {!state.game.cover_art ? (
                 <img
                   alt="movie"
                   className="game__image"
@@ -62,17 +67,17 @@ const GameDetail = () => {
                 <img
                   className="game__image"
                   alt="movie"
-                  src={game.cover_art.url}
+                  src={state.game.cover_art.url}
                 />
               )}
               <div className="game__date">
-                <h4>Year of release: {game.release_year}</h4>
+                <h4>Year of release: {state.game.release_year}</h4>
               </div>
               <div className="game__date">
-                <h4>Genre: {game.genre.name}</h4>
+                <h4>Genre: {state.game.genre.name}</h4>
               </div>
               <div className="game__date">
-                <h4>Price: {game.price}</h4>
+                <h4>Price: ${state.game.price}</h4>
               </div>
               <div className="comments">
                 <br />
